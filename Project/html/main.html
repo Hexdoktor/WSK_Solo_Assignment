@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Restaurants Finland</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <h1 class="logo">Student Restaurants</h1>
+        <nav class="nav">
+          <button data-view="restaurants">Restaurants</button>
+          <button data-view="favorites">Favorites</button>
+          <button data-view="profile">Profile</button>
+          <button data-view="map">Map</button>
+          <button id="logoutBtn">Logout</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- LOGIN / REGISTER -->
+    <section id="authView" class="view active">
+      <div class="auth-box">
+        <h2>Welcome</h2>
+        <input type="text" id="authEmail" placeholder="Email" />
+        <input type="password" id="authPassword" placeholder="Password" />
+        <button id="loginBtn">Login</button>
+        <button id="registerBtn" class="secondary">Register</button>
+      </div>
+    </section>
+
+    <!-- RESTAURANT LIST -->
+    <section id="restaurantsView" class="view">
+      <div class="container">
+        <h2>Restaurants</h2>
+
+        <div class="filters">
+          <select id="cityFilter">
+            <option value="">All cities</option>
+          </select>
+
+          <select id="providerFilter">
+            <option value="">All providers</option>
+          </select>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search restaurants"
+          />
+        </div>
+
+        <div id="restaurantList" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- RESTAURANT DETAIL -->
+    <section id="restaurantDetailView" class="view">
+      <div class="container">
+        <button class="backBtn" data-view="restaurants">← Back</button>
+        <h2 id="detailName"></h2>
+        <p id="detailAddress"></p>
+
+        <div class="tabs">
+          <button data-menu="day" class="active">Today</button>
+          <button data-menu="week">This Week</button>
+        </div>
+
+        <div id="menuContainer"></div>
+      </div>
+    </section>
+
+    <!-- FAVORITES -->
+    <section id="favoritesView" class="view">
+      <div class="container">
+        <h2>Your Favorites</h2>
+        <div id="favoritesList" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profileView" class="view">
+      <div class="container profile">
+        <h2>Your Profile</h2>
+
+        <img
+          id="profileImage"
+          class="profile-img"
+          src="default.jpg"
+          alt="Profile picture"
+        />
+
+        <input type="file" id="profileImageUpload" />
+
+        <input type="text" id="profileName" placeholder="Your name" />
+        <input type="text" id="profileCity" placeholder="City" />
+
+        <button id="saveProfileBtn">Save Changes</button>
+      </div>
+    </section>
+
+    <!-- MAP VIEW -->
+    <section id="mapView" class="view">
+      <div class="container">
+        <h2>Restaurants on Map</h2>
+        <div id="map" class="map"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© 2026 Student Restaurants Finland</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

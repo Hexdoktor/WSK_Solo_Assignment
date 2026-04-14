@@ -51,19 +51,21 @@ button {
 }
 
 /*VIEW TRANSITIONS*/
-/* DESIGN MODE — SHOW ALL VIEWS */
 
 .view {
   padding: 3rem 0;
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-  display: block !important;
+  opacity: 0;
+  transform: translateY(12px);
+  display: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
 .view.active {
+  display: block;
   opacity: 1;
-  transform: none;
+  transform: translateY(0);
 }
 
 /*ANIMATIONS*/

@@ -11,22 +11,28 @@
       <div class="container">
         <h1 class="logo">Student Restaurants</h1>
         <nav class="nav">
-          <button data-view="restaurants">Restaurants</button>
-          <button data-view="favorites">Favorites</button>
-          <button data-view="profile">Profile</button>
-          <button data-view="map">Map</button>
+          <button data-view="restaurantsView">Restaurants</button>
+          <button data-view="favoritesView">Favorites</button>
+          <button data-view="profileView">Profile</button>
+          <button data-view="mapView">Map</button>
           <button id="logoutBtn">Logout</button>
         </nav>
       </div>
     </header>
 
     <!-- LOGIN / REGISTER -->
-    <section id="authView" class="view active">
+    <section id="loginView" class="view">
       <div class="auth-box">
         <h2>Welcome</h2>
-        <input type="text" id="authEmail" placeholder="Email" />
-        <input type="password" id="authPassword" placeholder="Password" />
+        <!--LOGIN-->
+        <input type="text" id="loginUsername" placeholder="Username" />
+        <input type="password" id="loginPassword" placeholder="Password" />
         <button id="loginBtn">Login</button>
+        <hr style="margin: 1.5rem 0; opacity: 0.2" />
+
+        <!--REGISTER-->
+        <input type="text" id="registerUsername" placeholder="Username" />
+        <input type="password" id="registerPassword" placeholder="Password" />
         <button id="registerBtn" class="secondary">Register</button>
       </div>
     </section>
@@ -59,7 +65,7 @@
     <!-- RESTAURANT DETAIL -->
     <section id="restaurantDetailView" class="view">
       <div class="container">
-        <button class="backBtn" data-view="restaurants">← Back</button>
+        <button class="backBtn" data-view="restaurantsView">← Back</button>
         <h2 id="detailName"></h2>
         <p id="detailAddress"></p>
 
@@ -88,7 +94,7 @@
         <img
           id="profileImage"
           class="profile-img"
-          src="default.jpg"
+          src="../images/default_profile_picture.png"
           alt="Profile picture"
         />
 
@@ -113,6 +119,6 @@
       <p>© 2026 Student Restaurants Finland</p>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>

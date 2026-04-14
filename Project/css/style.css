@@ -201,6 +201,11 @@ button.secondary {
 }
 
 .auth-box input {
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
   margin-bottom: 1rem;
 }
 

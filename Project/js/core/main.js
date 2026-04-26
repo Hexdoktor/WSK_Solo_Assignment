@@ -9,9 +9,10 @@ import {
   setupFilterListeners,
   applyFilters,
 } from '../filters/filters.js';
+import {initMapView} from '../map/map.js';
 
 //Function to switch views
-function showView(id) {
+export function showView(id) {
   document.querySelectorAll('.view').forEach((view) => {
     view.classList.remove('active');
     view.style.display = 'none';
@@ -22,9 +23,11 @@ function showView(id) {
     target.classList.add('active');
     target.style.display = 'block';
   }
-}
 
-export {showView};
+  if (id === 'mapView') {
+    initMapView();
+  }
+}
 
 function setupNav() {
   document.querySelectorAll('.nav button[data-view]').forEach((btn) => {

@@ -5,6 +5,7 @@ export function setRestaurantData(data) {
   allRestaurants = data;
 }
 
+// function to show only the filtered restaurants
 export function applyFilters() {
   const city = document.getElementById('cityFilter').value;
   const provider = document.getElementById('providerFilter').value;
@@ -18,6 +19,7 @@ export function applyFilters() {
   });
 }
 
+// function to fill the dropdowns with options
 export function populateFilters(restaurants) {
   const cityFilter = document.getElementById('cityFilter');
   const providerFilter = document.getElementById('providerFilter');
@@ -40,6 +42,7 @@ export function populateFilters(restaurants) {
   });
 }
 
+// listeners for filters
 export function setupFilterListeners(callback) {
   onFilterUpdate = callback;
 

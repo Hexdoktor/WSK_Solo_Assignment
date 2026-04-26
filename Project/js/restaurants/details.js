@@ -6,6 +6,7 @@ function formatFullDate(dateStr) {
   return dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 }
 
+// function to fetch a specific restaurant by its id
 export async function fetchRestaurantById(id) {
   try {
     const res = await fetch(`${API_BASE}/restaurants/${id}`);
@@ -17,6 +18,7 @@ export async function fetchRestaurantById(id) {
   }
 }
 
+//function to fetch the daily menu for a given restaurant
 export async function fetchMenuToday(id) {
   try {
     const res = await fetch(`${API_BASE}/restaurants/daily/${id}/fi`);
@@ -34,6 +36,7 @@ export async function fetchMenuToday(id) {
   }
 }
 
+//function to fetch the weekly menu for a given restaurant
 export async function fetchMenuWeek(id) {
   try {
     const res = await fetch(`${API_BASE}/restaurants/weekly/${id}/fi`);
@@ -41,19 +44,9 @@ export async function fetchMenuWeek(id) {
 
     const data = await res.json();
 
-    //in case API returns an array
-    if (Array.isArray(data)) {
-      return [{day: 'Unknown', courses: data}];
-    }
-    //in case API returns {courses: [...]}
-    if (Array.isArray(data.courses)) {
-      return [{day: 'Unknown', courses: data.courses}];
-    }
-    //in case API returns {days: [{courses : [...] }, ...] }
+    //
     if (Array.isArray(data.days)) {
       return data.days.map((dayObj) => {
-        console.log('WEEK DATE RAW:', dayObj.date);
-
         return {
           day: formatFullDate(dayObj.date),
           courses: dayObj.courses || [],
@@ -68,6 +61,7 @@ export async function fetchMenuWeek(id) {
   }
 }
 
+// function to show restaurant details after clicking its card
 export function renderRestaurantDetail(restaurant, todayMenu, weekMenu) {
   const infoContainer = document.getElementById('restaurantInfo');
   const dayContainer = document.getElementById('menuDay');
@@ -124,6 +118,7 @@ export function renderRestaurantDetail(restaurant, todayMenu, weekMenu) {
     .join('')}`;
 }
 
+// listeners for menu tabs to show either daily or weekly menu
 export function setupMenuTabs() {
   const dayBtn = document.querySelector('[data-menu="day"]');
   const weekBtn = document.querySelector('[data-menu="week"]');

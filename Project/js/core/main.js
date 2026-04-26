@@ -11,6 +11,7 @@ import {
 } from '../filters/filters.js';
 import {initMapView} from '../map/map.js';
 import {renderFavoritesView} from '../favorites/renderFavorites.js';
+import {loadProfile, setupProfileEvents} from '../profile/profile.js';
 
 //Function to switch views
 export function showView(id) {
@@ -31,6 +32,10 @@ export function showView(id) {
 
   if (id === 'favoritesView') {
     renderFavoritesView();
+  }
+
+  if (id === 'profileView') {
+    loadProfile();
   }
 }
 
@@ -83,6 +88,7 @@ function setupAuth() {
 document.addEventListener('DOMContentLoaded', () => {
   setupNav();
   setupAuth();
+  setupProfileEvents();
 
   //Auto-login
   const currentUser = getCurrentUser();

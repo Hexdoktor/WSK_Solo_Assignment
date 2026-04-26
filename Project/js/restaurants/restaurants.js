@@ -6,6 +6,7 @@ import {
   setupMenuTabs,
 } from './details.js';
 import {showView} from '../core/main.js';
+import {isFavorite, toggleFavorite} from '../favorites/favorites.js';
 
 const API_BASE = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
 
@@ -22,8 +23,24 @@ export async function fetchRestaurants() {
 }
 
 // Render restaurant cards
-export function renderRestaurants(restaurants) {
-  const list = document.getElementById('restaurantList');
+export function renderRestaurants(
+  restaurants,
+  containerId = 'restaurantList',
+  sort = true
+) {
+  if (sort) {
+    restaurants = [...restaurants].sort((a, b) => {
+      const aFav = isFavorite(a._id);
+      const bFav = isFavorite(b._id);
+
+      if (aFav && !bFav) return -1;
+      if (!aFav && bFav) return 1;
+
+      return a.name.localeCompare(b.name);
+    });
+  }
+
+  const list = document.getElementById(containerId);
   list.innerHTML = '';
 
   restaurants.forEach((r) => {
@@ -31,14 +48,24 @@ export function renderRestaurants(restaurants) {
     card.className = 'card';
     card.dataset.id = r._id;
 
+    const fav = isFavorite(r._id);
+
     card.innerHTML = `
         <span class="badge">${r.company}</span>
-        <h3>${r.name}</h3>
+        <div class="card-header">
+          <h3>${r.name}</h3>
+          <span class="favorite-icon ${fav ? 'active' : ''}" data-fav="${r._id}">
+            ${fav ? '⭐' : '☆'}
+          </span>
+        </div>
+
         <p>${r.city}</p>
         <p class="text-muted">${r.address}</p>
     `;
 
-    card.addEventListener('click', async () => {
+    card.addEventListener('click', async (e) => {
+      if (e.target.classList.contains('favorite-icon')) return;
+
       showView('restaurantDetailView');
 
       const restaurant = await fetchRestaurantById(r._id);
@@ -47,6 +74,16 @@ export function renderRestaurants(restaurants) {
 
       renderRestaurantDetail(restaurant, todayMenu, weekMenu);
       setupMenuTabs();
+    });
+
+    card.querySelector('.favorite-icon').addEventListener('click', (e) => {
+      e.stopPropagation();
+
+      const id = e.target.dataset.fav;
+      const nowFav = toggleFavorite(id);
+
+      e.target.classList.toggle('active', nowFav);
+      e.target.textContent = nowFav ? '⭐' : '☆';
     });
 
     list.appendChild(card);

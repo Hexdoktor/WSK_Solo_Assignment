@@ -10,6 +10,7 @@ import {
   applyFilters,
 } from '../filters/filters.js';
 import {initMapView} from '../map/map.js';
+import {renderFavoritesView} from '../favorites/renderFavorites.js';
 
 //Function to switch views
 export function showView(id) {
@@ -26,6 +27,10 @@ export function showView(id) {
 
   if (id === 'mapView') {
     initMapView();
+  }
+
+  if (id === 'favoritesView') {
+    renderFavoritesView();
   }
 }
 

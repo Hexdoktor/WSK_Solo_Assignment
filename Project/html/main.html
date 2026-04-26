@@ -64,17 +64,20 @@
 
     <!-- RESTAURANT DETAIL -->
     <section id="restaurantDetailView" class="view">
-      <div class="container">
+      <div id="restaurantDetailContent" class="container">
         <button class="backBtn" data-view="restaurantsView">← Back</button>
-        <h2 id="detailName"></h2>
-        <p id="detailAddress"></p>
+
+        <div id="restaurantInfo"></div>
 
         <div class="tabs">
           <button data-menu="day" class="active">Today</button>
           <button data-menu="week">This Week</button>
         </div>
 
-        <div id="menuContainer"></div>
+        <div id="menuContainer">
+          <div id="menuDay"></div>
+          <div id="menuWeek" style="display: none"></div>
+        </div>
       </div>
     </section>
 

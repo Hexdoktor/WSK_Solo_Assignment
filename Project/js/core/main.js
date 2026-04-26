@@ -8,6 +8,7 @@ import {
   populateFilters,
   setupFilterListeners,
   applyFilters,
+  getRestaurantData,
 } from '../filters/filters.js';
 import {initMapView} from '../map/map.js';
 import {renderFavoritesView} from '../favorites/renderFavorites.js';
@@ -36,6 +37,13 @@ export function showView(id) {
 
   if (id === 'profileView') {
     loadProfile();
+  }
+
+  if (id === 'restaurantsView') {
+    const restaurants = getRestaurantData();
+    if (restaurants && restaurants.length) {
+      renderRestaurants(restaurants);
+    }
   }
 }
 
@@ -70,6 +78,7 @@ function setupAuth() {
 
         populateFilters(restaurants);
 
+        showView('restaurantsView');
         renderRestaurants(restaurants);
 
         setupFilterListeners((filtered) => {
@@ -93,11 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
   //Auto-login
   const currentUser = getCurrentUser();
   if (currentUser) {
-    showView('restaurantsView');
-
     fetchRestaurants().then((restaurants) => {
       setRestaurantData(restaurants);
       populateFilters(restaurants);
+
+      showView('restaurantsView');
       renderRestaurants(restaurants);
 
       setupFilterListeners((filtered) => {

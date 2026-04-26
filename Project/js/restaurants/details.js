@@ -82,7 +82,7 @@ export function renderRestaurantDetail(restaurant, todayMenu, weekMenu) {
         (item) => `
       <li>
         <strong>${item.name}</strong>
-        <div class="meta>
+        <div class="meta">
           <span>${item.price || ''}</span>
           <span>${item.diets || ''}</span>
         </div>

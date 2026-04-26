@@ -1,7 +1,15 @@
-const PROFILE_KEY = 'userProfile';
+import {getCurrentUser} from '../auth/auth.js';
+
+function getProfileKey() {
+  const user = getCurrentUser();
+  return user ? `userProfile_${user.username}` : null;
+}
 
 export function loadProfile() {
-  const data = JSON.parse(localStorage.getItem(PROFILE_KEY)) || {};
+  const key = getProfileKey();
+  if (!key) return;
+
+  const data = JSON.parse(localStorage.getItem(key)) || {};
 
   if (data.name) document.getElementById('profileName').value = data.name;
   if (data.city) document.getElementById('profileCity').value = data.city;
@@ -9,30 +17,37 @@ export function loadProfile() {
 }
 
 export function saveProfile() {
+  const key = getProfileKey();
+  if (!key) return;
+
   const name = document.getElementById('profileName').value.trim();
   const city = document.getElementById('profileCity').value.trim();
   const image = document.getElementById('profileImage').src;
 
   const profile = {name, city, image};
-  localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+  localStorage.setItem(key, JSON.stringify(profile));
 }
 
 export function setupProfileEvents() {
   const uploadInput = document.getElementById('profileImageUpload');
   const saveBtn = document.getElementById('saveProfileBtn');
 
-  uploadInput.addEventListener('change', () => {
-    const file = uploadInput.files[0];
-    if (!file) return;
+  if (uploadInput) {
+    uploadInput.addEventListener('change', () => {
+      const file = uploadInput.files[0];
+      if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      document.getElementById('profileImage').src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  });
+      const reader = new FileReader();
+      reader.onload = () => {
+        document.getElementById('profileImage').src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
-  saveBtn.addEventListener('click', () => {
-    saveProfile();
-  });
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      saveProfile();
+    });
+  }
 }

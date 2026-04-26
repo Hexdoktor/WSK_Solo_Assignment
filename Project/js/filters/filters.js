@@ -5,6 +5,10 @@ export function setRestaurantData(data) {
   allRestaurants = data;
 }
 
+export function getRestaurantData() {
+  return allRestaurants;
+}
+
 // function to show only the filtered restaurants
 export function applyFilters() {
   const city = document.getElementById('cityFilter').value;

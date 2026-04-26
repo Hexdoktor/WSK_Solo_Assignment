@@ -1,4 +1,4 @@
-import {fetchRestaurants} from '../restaurants/restaurants.js';
+import {getRestaurantData} from '../filters/filters.js';
 import {fetchMenuToday} from '../restaurants/details.js';
 
 let map;
@@ -14,7 +14,8 @@ export async function initMapView() {
     }).addTo(map);
   }
 
-  const restaurants = await fetchRestaurants();
+  const restaurants = getRestaurantData();
+  if (!restaurants || !restaurants.length) return;
 
   markers.forEach((m) => map.removeLayer(m));
   markers = [];

@@ -1,7 +1,14 @@
-const FAVORITES_KEY = 'favoriteRestaurants';
+import {getCurrentUser} from '../auth/auth.js';
+
+function getFavoritesKey() {
+  const user = getCurrentUser();
+  return user ? `favoriteRestaurants_${user.username}` : null;
+}
 
 export function getFavorites() {
-  return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+  const key = getFavoritesKey();
+  if (!key) return [];
+  return JSON.parse(localStorage.getItem(key)) || [];
 }
 
 export function isFavorite(id) {
@@ -10,6 +17,9 @@ export function isFavorite(id) {
 }
 
 export function toggleFavorite(id) {
+  const key = getFavoritesKey();
+  if (!key) return false;
+
   const favs = getFavorites();
   let updated;
 
@@ -19,6 +29,6 @@ export function toggleFavorite(id) {
     updated = [...favs, id];
   }
 
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
+  localStorage.setItem(key, JSON.stringify(updated));
   return updated.includes(id);
 }

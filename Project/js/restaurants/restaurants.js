@@ -41,6 +41,7 @@ export function renderRestaurants(
   }
 
   const list = document.getElementById(containerId);
+  if (!list) return;
   list.innerHTML = '';
 
   restaurants.forEach((r) => {
@@ -55,7 +56,7 @@ export function renderRestaurants(
         <div class="card-header">
           <h3>${r.name}</h3>
           <span class="favorite-icon ${fav ? 'active' : ''}" data-fav="${r._id}">
-            ${fav ? '⭐' : '☆'}
+            ${fav ? '★' : '☆'}
           </span>
         </div>
 
@@ -72,6 +73,8 @@ export function renderRestaurants(
       const todayMenu = await fetchMenuToday(r._id);
       const weekMenu = await fetchMenuWeek(r._id);
 
+      if (!restaurant) return;
+
       renderRestaurantDetail(restaurant, todayMenu, weekMenu);
       setupMenuTabs();
     });
@@ -83,7 +86,7 @@ export function renderRestaurants(
       const nowFav = toggleFavorite(id);
 
       e.target.classList.toggle('active', nowFav);
-      e.target.textContent = nowFav ? '⭐' : '☆';
+      e.target.textContent = nowFav ? '★' : '☆';
     });
 
     list.appendChild(card);
